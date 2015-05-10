@@ -24,7 +24,7 @@ public class DBLoader
     public static SessionFactory createSessionFactory(boolean update) {
         Configuration configuration = new Configuration();
         if (update)
-            configuration.configure("/hibernatelocalupdate.cfg.xml");
+            configuration.configure("/hibernateupdate.cfg.xml");
         else configuration.configure("/hibernate.cfg.xml");
         ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
                 configuration.getProperties()).buildServiceRegistry();
