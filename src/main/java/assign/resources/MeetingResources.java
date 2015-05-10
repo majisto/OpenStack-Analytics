@@ -32,7 +32,7 @@ public class MeetingResources
     @Produces("application/xml")
     public StreamingOutput getMeetings () throws Exception {
         List<Meetings> meetings = loader.getMeetings();
-        MeetingList m = new MeetingList();
+        final MeetingList m = new MeetingList();
         m.setMeetingsList(meetings);
 //        return outputStream -> outputMeetings(outputStream, m);
         return new StreamingOutput() {
