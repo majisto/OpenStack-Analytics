@@ -63,7 +63,7 @@ public class DBLoader
         return assignmentId;
     }
 
-    public List<Meetings> getMeetings(String name, String year) throws Exception {
+    public List<Meetings> getMeetings() throws Exception {
         Session session = sessionFactory.openSession();
 
         session.beginTransaction();
