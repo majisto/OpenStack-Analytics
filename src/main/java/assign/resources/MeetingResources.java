@@ -34,7 +34,12 @@ public class MeetingResources
         List<Meetings> meetings = loader.getMeetings();
         MeetingList m = new MeetingList();
         m.setMeetingsList(meetings);
-        return outputStream -> outputMeetings(outputStream, m);
+//        return outputStream -> outputMeetings(outputStream, m);
+        return new StreamingOutput() {
+            public void write(OutputStream outputStream) throws IOException, WebApplicationException {
+                outputMeetings(outputStream, m);
+            }
+        };
     }
 
     @GET
