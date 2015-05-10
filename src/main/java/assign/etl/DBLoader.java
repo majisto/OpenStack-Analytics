@@ -25,7 +25,7 @@ public class DBLoader
         Configuration configuration = new Configuration();
         if (update)
             configuration.configure("/hibernatelocalupdate.cfg.xml");
-        else configuration.configure("/hibernatelocal.cfg.xml");
+        else configuration.configure("/hibernate.cfg.xml");
         ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
                 configuration.getProperties()).buildServiceRegistry();
         sessionFactory = configuration.buildSessionFactory(serviceRegistry);
@@ -46,7 +46,10 @@ public class DBLoader
         Long assignmentId = null;
         try {
             tx = session.beginTransaction();
-            meetings.forEach(session::merge);
+            for (Meetings m: meetings){
+                session.save(m);
+            }
+//            meetings.forEach(session::merge);
             tx.commit();
         } catch (Exception e) {
             if (tx != null) {
@@ -65,8 +68,7 @@ public class DBLoader
 
         session.beginTransaction();
 
-        Criteria criteria = session.createCriteria(Meetings.class).
-                add(Restrictions.eq("team_meeting_name", name)).add(Restrictions.eq("year", year));
+        Criteria criteria = session.createCriteria(Meetings.class);
 
         List<Meetings> assignments = criteria.list();
 
