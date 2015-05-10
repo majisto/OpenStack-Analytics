@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * assignment7 Created by Majisto on 5/7/2015.
  */
-@ApplicationPath("/assignment6")
+@ApplicationPath("/assignment7")
 public class MainApplication extends Application {
 
     private Set<Object> singletons = new HashSet<Object>();
