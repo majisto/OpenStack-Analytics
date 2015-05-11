@@ -67,7 +67,7 @@
   }
 
   function getData() {
-    loadXMLDoc("http://localhost:8080/assignment7/getMeetings", function() {
+    loadXMLDoc("/assignment7/getMeetings", function() {
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         var xmlDoc = xmlhttp.responseXML;
         var names=xmlDoc.getElementsByTagName("Project");

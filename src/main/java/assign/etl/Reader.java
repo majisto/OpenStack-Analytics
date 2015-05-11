@@ -46,9 +46,10 @@ public class Reader
         return null;
     }
 
-    private Map<String, List<String>> getData (List<String> urlData){
+    private Map<String, List<String>> getData (List<String> urlData) throws Exception {
         Map<String, List<String>> mainData = new LinkedHashMap<>();
         ArrayList<String> logs = new ArrayList<>();
+        HashSet<String> meet = new HashSet<>();
         for (String s: urlData){
             Elements links = getConnectionHost(s);
             ArrayList<String> years = new ArrayList<>(5);
@@ -62,12 +63,13 @@ public class Reader
                 for (Element e: yearlinks){
                     String html = e.html();
                     if (!badWords.contains(html)) {
-                        if (html.endsWith(".log.html")) logs.add(html);
+                        hasMeetingName(meet, html);
                     }
                 }
             }
+            logs = new ArrayList<>(meet);
             mainData.put(s, logs);
-            logs = new ArrayList<>();
+            meet = new HashSet<>();
         }
         return mainData;
     }
@@ -113,5 +115,15 @@ public class Reader
             e.printStackTrace();
         }
         return links;
+    }
+
+    //Added.
+    public void hasMeetingName(HashSet<String> projectHash, String name) throws Exception {
+        String mainName = name.replace(".log.html", "");
+        mainName = mainName.replace(".log.txt", "");
+        mainName = mainName.replace(".txt", "");
+        mainName = mainName.replace(".html", "");
+
+        if (!projectHash.contains(mainName)) projectHash.add(mainName);
     }
 }
